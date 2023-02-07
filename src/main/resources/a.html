@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="/vue.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/ant-design-vue@3.2.15/dist/antd.min.js" integrity="sha256-pueTpkOcfWz1VLeI/39pewXEKY4OWlsctGziYuahCqg=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ant-design-vue@3.2.15/dist/antd.min.css" integrity="sha256-0bEYz+lj3MLJt8NGS5IbCEBOE3fs3I62a1/a0IeBK34=" crossorigin="anonymous">
+<script src="https://unpkg.com/dayjs/dayjs.min.js"></script>
+<script src="https://unpkg.com/dayjs/plugin/customParseFormat.js"></script>
+<script src="https://unpkg.com/dayjs/plugin/weekday.js"></script>
+<script src="https://unpkg.com/dayjs/plugin/localeData.js"></script>
+<script src="https://unpkg.com/dayjs/plugin/weekOfYear.js"></script>
+<script src="https://unpkg.com/dayjs/plugin/weekYear.js"></script>
+<script src="https://unpkg.com/dayjs/plugin/advancedFormat.js"></script>
+    <a-form
+            :model="formState"
+            name="basic"
+            :label-col="{ span: 8 }"
+            :wrapper-col="{ span: 16 }"
+            autocomplete="off"
+            @finish="onFinish"
+            @finishFailed="onFinishFailed"
+    >
+        <a-form-item
+                label="Username"
+                name="username"
+                :rules="[{ required: true, message: 'Please input your username!' }]"
+        >
+            <a-input v-model:value="formState.username" />
+        </a-form-item>
+
+        <a-form-item
+                label="Password"
+                name="password"
+                :rules="[{ required: true, message: 'Please input your password!' }]"
+        >
+            <a-input-password v-model:value="formState.password" />
+        </a-form-item>
+
+        <a-form-item name="remember" :wrapper-col="{ offset: 8, span: 16 }">
+            <a-checkbox v-model:checked="formState.remember">Remember me</a-checkbox>
+        </a-form-item>
+
+        <a-form-item :wrapper-col="{ offset: 8, span: 16 }">
+            <a-button type="primary" html-type="submit">Submit</a-button>
+        </a-form-item>
+    </a-form>
+<script>
+    import { defineComponent, reactive } from 'vue';
+    export default defineComponent({
+        setup() {
+            const formState = reactive({
+                username: '',
+                password: '',
+                remember: true,
+            });
+            const onFinish = values => {
+                console.log('Success:', values);
+            };
+            const onFinishFailed = errorInfo => {
+                console.log('Failed:', errorInfo);
+            };
+            return {
+                formState,
+                onFinish,
+                onFinishFailed,
+            };
+        },
+    });
+</script>
+</body>
+</html>
