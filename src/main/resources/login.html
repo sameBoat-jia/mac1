@@ -1,120 +1,99 @@
 <!DOCTYPE html>
-<html lang="en"  >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>登录页面</title>
-<!--  &lt;!&ndash; 引入样式 &ndash;&gt;-->
-<!--  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">-->
-<!--  &lt;!&ndash; 引入组件库 &ndash;&gt;-->
-  <script src="/element-ui/index.js"></script>
-  <style>
-    body {
-      background-image: url("b1.jpg");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      background-attachment: fixed;      /*图片铺满整个页面*/
-    }
-    .main {
-      width: 500px;
-      height: 300px;
-      box-shadow: 0 5px 20px 0 #e8e8e8;
-      background-color: white;
-      border-radius: 10px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      margin: auto;
-    }
-    .main h2 {
-      color: red;
-      margin-left: 150px;
-    }
-    .form {
-      margin-top: 30px;
-      margin-left: 60px;
-    }
-    .form input {
-      width: 300px;
-      height: 25px;
-      border: 1px solid lightgray;
-      outline: none;      /*输入内容时不显示边框*/
-    }
-    .form button {
-      width: 150px;
-      height: 30px;
-      color: white;
-      background-color: green;
-      border-style: none;
-      border-radius: 5px;
-      font-size: 15px;
-      margin-top: 15px;
-      margin-left: 130px;
-      outline: none;
-      cursor: pointer;    /*光标放到上面有小手*/
-    }
-  </style>
+    <title>aaa</title>
 </head>
 <body>
-<script src="/vue.js"></script>
-<img src="/titl.png">
-<!--<div id="app" class="main">-->
-<!--  <h2>天津理工大学教务选课系统</h2>-->
-<!--  <form action="/users/login" method="post" class="form">-->
-<!--    用户名: <input type="text" name="username"><br>    &lt;!&ndash;输入的用户名保存到username变量，传回后端&ndash;&gt;-->
-<!--    密 码 : <input type="password" name="password"><br>-->
+<script src="vue.js"></script>
+<script src="element-ui/index.css "></script>
+<script src="element-ui/index.js"></script>
+<script src="login.js"></script>
+<script src="axios.min.js"></script>
+<script src="/request.js"></script>
+<script src="/validate.js"></script>
 
-<!--    <button type="submit" @click="aaa">登录</button><br>-->
-
-<!--  </form>-->
-<!--<div>-->
-<el-form ref="loginForm" :model="loginForm" :rules="loginRules" >
-    <div class="login-form-title">
-        <img src="../../images/login/logo.png" style="width:139px;height:42px;" alt="" />
+<div class="login" id="login-app">
+    <div class="login-box">
+        <div class="login-form">
+            <el-form ref="loginForm" :model="loginForm" :rules="loginRules" >
+                <div class="login-form-title">
+                </div>
+                <el-form-item prop="username">
+                    <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号" maxlength="20"
+                              prefix-icon="iconfont icon-user" />
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input v-model="loginForm.password" type="password" placeholder="密码" prefix-icon="iconfont icon-lock" maxlength="20"
+                              @keyup.enter.native="handleLogin" />
+                </el-form-item>
+                <el-form-item style="width:100%;">
+                    <el-button :loading="loading" class="login-btn" size="medium" type="primary" style="width:100%;"
+                               @click.native.prevent="handleLogin">
+                        <span v-if="!loading">登录</span>
+                        <span v-else>登录中...</span>
+                    </el-button>
+                </el-form-item>
+            </el-form>
+        </div>
     </div>
-    <el-form-item prop="username">
-        <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号" maxlength="20"
-                  prefix-icon="iconfont icon-user" />
-    </el-form-item>
-    <el-form-item prop="password">
-        <el-input v-model="loginForm.password" type="password" placeholder="密码" prefix-icon="iconfont icon-lock" maxlength="20"
-                  @keyup.enter.native="handleLogin" />
-    </el-form-item>
-    <el-form-item style="width:100%;">
-        <el-button :loading="loading" class="login-btn" size="medium" type="primary" style="width:100%;"
-                   @click.native.prevent="handleLogin">
-            <span v-if="!loading">登录</span>
-            <span v-else>登录中...</span>
-        </el-button>
-    </el-form-item>
-</el-form>
-<!--</div>-->
-<!--</div>-->
+</div>
 
 <script>
-
-  new Vue({
-    el:"#app",
-    data:{
-      test:"aaaaaaaaaaa"
-    },
-    methods: {
-      aaa:function (data)
-      {
-        alert("aaaaaaaaaaaaaaaaaaaa")
-        console.log("执行跳转...............")
-          return $axios({
-            'url': '/user/aaa',
-            'method': 'post',
-            data
-          })
-      }
-    }
-  })
+    new Vue({
+        el: '#login-app',
+        data() {
+            return {
+                loginForm:{
+                    username: '20212399',
+                    password: '123456'
+                },
+                loading: false
+            }
+        },
+        computed: {
+            loginRules() {
+                const validateUsername = (rule, value, callback) => {
+                    if (value.length < 1 ) {
+                        callback(new Error('请输入用户名'))
+                    } else {
+                        callback()
+                    }
+                }
+                const validatePassword = (rule, value, callback) => {
+                    if (value.length < 6) {
+                        callback(new Error('密码必须在6位以上'))
+                    } else {
+                        callback()
+                    }
+                }
+                return {
+                    'username': [{ 'validator': validateUsername, 'trigger': 'blur' }],
+                    'password': [{ 'validator': validatePassword, 'trigger': 'blur' }]
+                }
+            }
+        },
+        created() {
+        },
+        methods: {
+            async handleLogin() {
+                this.$refs.loginForm.validate(async (valid) => {
+                    if (valid) {
+                        this.loading = true
+                        let res = await loginApi(this.loginForm)
+                        // if (String(res.code) === '1')
+                        if (true){
+                            localStorage.setItem('userInfo',JSON.stringify(res.data))
+                            window.location.href= '/index.html'
+                        } else {
+                            this.$message.error(res.msg)
+                            this.loading = false
+                        }
+                    }
+                })
+            }
+        }
+    })
 </script>
 </body>
-
 </html>
