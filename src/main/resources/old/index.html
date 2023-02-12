@@ -13,7 +13,9 @@
 
     new Vue({
         el: '#index-app',
-
+        data() {
+            aaa: []
+        },
         methods: {
             data(){
                 return{
@@ -23,10 +25,9 @@
             async course()
             {
                 const resp=await axios.get('/courses');
-                this.courses=resp.data.data;
+                this.aaa=resp.data.data;
                 console.log(resp.data.data)
                 console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa")
-
             }
         }
     })
