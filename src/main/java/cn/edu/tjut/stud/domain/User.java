@@ -6,8 +6,9 @@ import lombok.Data;
 @Data
 public class User
 {
-    private Long id;
+    private int id;
     private String username;
     private String password;
     private String sex;
+    private String description;
 }

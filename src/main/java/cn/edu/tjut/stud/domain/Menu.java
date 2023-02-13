@@ -15,7 +15,7 @@ public class Menu  {
      * 
      */
     @TableId
-    private Integer id;
+    private int id;
 
     /**
      * 

@@ -11,4 +11,12 @@ public class MvcConfig extends WebMvcConfigurationSupport
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").addResourceLocations("classpath:/");
     }
+
+//    @Override
+//    protected void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+//        MappingJackson2HttpMessageConverter messageConverter=new MappingJackson2HttpMessageConverter();
+//        messageConverter.setObjectMapper(new JacksonObjectMapper());
+//        converters.add(0,messageConverter);
+//
+//    }
 }

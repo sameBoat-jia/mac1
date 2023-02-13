@@ -8,7 +8,7 @@ import lombok.Data;
 public class Course
 {
     @TableId
-    private Long cno;
+    private int cno;
     private String cname;
     private String type;
     private Double score;
