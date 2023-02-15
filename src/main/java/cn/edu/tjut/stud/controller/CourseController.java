@@ -1,34 +1,71 @@
 package cn.edu.tjut.stud.controller;
 
 
+import cn.edu.tjut.stud.common.R;
 import cn.edu.tjut.stud.domain.Course;
 import cn.edu.tjut.stud.service.CourseService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/courses")
-public class CourseController
-{
+@RequestMapping("/api/courses")
+public class CourseController {
     @Autowired
     private CourseService courseService;
 
 
     @GetMapping
-    public List<Course> getAllCourse()
-    {
+    public R<List<Course>> getAllCourse() {
         List<Course> list = courseService.list();
-        return list;
+        return R.success(list);
 
     }
+
+    @GetMapping("plan/{plan}")
+    public R<List<Course>> ShouldSelectCourse(@PathVariable int plan) {
+        List<Course> list = courseService.ShouldSelectCourse(plan);
+        return R.success(list);
+
+    }
+    @PutMapping
+    public R<Course> change(@RequestBody Course course) {
+        courseService.updateById(course);
+        return R.success(course);
+    }
+
+    @PostMapping
+    public R<Course> addCourse(@RequestBody Course course) {
+        boolean save = courseService.save(course);
+        return R.success(course);
+
+    }
+
     @GetMapping("{cno}")
-    public Course getById(@PathVariable Long cno)
+    public R<Course> getById(@PathVariable int cno) {
+        Course byId = courseService.getById(cno);
+
+        return R.success(byId);
+    }
+
+    @GetMapping("/suggest")
+    public R<List<Course>> suggestSlelctCourse() {
+        List<Course> list = courseService.SuggestSelectCourse();
+        return R.success(list);
+
+    }
+
+    @GetMapping("{currentPage}/{pageSize}")
+    public IPage<Course> getPage(@PathVariable int currentPage, @PathVariable int pageSize) {
+        return courseService.getPage(currentPage, pageSize);
+    }
+
+    @DeleteMapping("{id}")
+    public R<String> deleteCourse(@PathVariable int id)
     {
-        return courseService.getById(cno);
+        courseService.removeById(id);
+        return R.success("删除成功");
     }
 }

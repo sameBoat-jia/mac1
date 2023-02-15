@@ -11,4 +11,5 @@ public class User
     private String password;
     private String sex;
     private String description;
+    private String name;
 }

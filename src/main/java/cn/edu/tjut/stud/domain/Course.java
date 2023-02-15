@@ -13,4 +13,5 @@ public class Course
     private String type;
     private Double score;
     private String teacher;
+    private int plan;
 }
