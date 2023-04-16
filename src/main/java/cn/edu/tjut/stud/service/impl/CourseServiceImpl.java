@@ -34,4 +34,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
 
         return courseDao.SuggestSelectCourse();
     }
+
+    @Override
+    public Course selectMyCourse(int cno) {
+        return courseDao.selectMyCourse(cno);
+    }
 }

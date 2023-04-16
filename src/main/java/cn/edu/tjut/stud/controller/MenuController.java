@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 菜单控制器
+ *
+ * @author jiatongzhou
+ * @date 2023/02/25
+ */
 @Slf4j
 @RestController
 @RequestMapping("/api/menu")
@@ -27,7 +33,12 @@ public class MenuController {
 ////        return R.success(menuService.findAll());
 //    }
 
-//    @GetMapping("/{username}")
+    /**
+     * 找到
+     *
+     * @param username 用户名
+     * @return {@link List}<{@link Menu}>
+     *///    @GetMapping("/{username}")
 //    public R<Menu> findBy(@PathVariable String username) {
 //        Menu menu = new Menu();
 //

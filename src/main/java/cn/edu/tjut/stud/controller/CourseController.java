@@ -10,55 +10,67 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author jiatongzhou
+ */
 @RestController
 @RequestMapping("/api/courses")
-public class CourseController {
+public class CourseController
+{
     @Autowired
     private CourseService courseService;
 
 
     @GetMapping
-    public R<List<Course>> getAllCourse() {
+    public R<List<Course>> getAllCourse()
+    {
         List<Course> list = courseService.list();
         return R.success(list);
 
     }
 
     @GetMapping("plan/{plan}")
-    public R<List<Course>> ShouldSelectCourse(@PathVariable int plan) {
+    public R<List<Course>> shouldSelectCourse(@PathVariable int plan)
+    {
         List<Course> list = courseService.ShouldSelectCourse(plan);
         return R.success(list);
 
     }
+
     @PutMapping
-    public R<Course> change(@RequestBody Course course) {
+    public R<Course> change(@RequestBody Course course)
+    {
         courseService.updateById(course);
         return R.success(course);
     }
 
     @PostMapping
-    public R<Course> addCourse(@RequestBody Course course) {
+    public R<Course> addCourse(@RequestBody Course course)
+    {
         boolean save = courseService.save(course);
         return R.success(course);
 
     }
 
     @GetMapping("{cno}")
-    public R<Course> getById(@PathVariable int cno) {
+    public R<Course> getById(@PathVariable int cno)
+    {
         Course byId = courseService.getById(cno);
 
         return R.success(byId);
     }
 
     @GetMapping("/suggest")
-    public R<List<Course>> suggestSlelctCourse() {
+    public R<List<Course>> suggestSlelctCourse()
+    {
         List<Course> list = courseService.SuggestSelectCourse();
         return R.success(list);
 
     }
 
     @GetMapping("{currentPage}/{pageSize}")
-    public IPage<Course> getPage(@PathVariable int currentPage, @PathVariable int pageSize) {
+    public IPage<Course> getPage(@PathVariable int currentPage, @PathVariable int pageSize)
+    {
         return courseService.getPage(currentPage, pageSize);
     }
 

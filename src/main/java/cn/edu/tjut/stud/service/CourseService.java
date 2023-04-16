@@ -13,4 +13,5 @@ public interface CourseService extends IService<Course>
     public List<Course> ShouldSelectCourse(int plan);
     public List<Course> SuggestSelectCourse();
 
+    public Course selectMyCourse(int cno);
 }

@@ -1,12 +1,23 @@
 server:
   port: 8080
 mybatis-plus:
-  configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     banner: false
 spring:
+  redis:
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 1
+        time-between-eviction-runs: 10s
+  jackson:
+    default-property-inclusion: non_null # JSON处理时忽略非空字段
   main:
     banner-mode: off
   datasource:

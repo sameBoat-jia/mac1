@@ -63,9 +63,9 @@ public class R<T> {
         return r;
     }
 
-    public R<T> add(String key, Object value) {
-        this.map.put(key, value);
-        return this;
-    }
+//    public R<T> add(String key, Object value) {
+//        this.map.put(key, value);
+//        return this;
+//    }
 
 }

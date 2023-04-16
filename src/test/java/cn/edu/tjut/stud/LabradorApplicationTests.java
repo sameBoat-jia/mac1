@@ -1,6 +1,7 @@
 package cn.edu.tjut.stud;
 
 import cn.edu.tjut.stud.dao.CourseDao;
+import cn.edu.tjut.stud.dao.UserCourseDao;
 import cn.edu.tjut.stud.dao.UserDao;
 import cn.edu.tjut.stud.domain.UserRole;
 import cn.edu.tjut.stud.service.RoleService;
@@ -19,6 +20,13 @@ class LabradorApplicationTests {
     @Autowired
     private CourseDao courseDao;
 
+    @Autowired
+    private UserCourseDao userCourseDao;
+    @Test
+    void selectCourseAndScore()
+    {
+        userCourseDao.selectCourseAndScore(9);
+    }
     /**
      * 分页功能
      */

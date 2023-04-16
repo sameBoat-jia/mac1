@@ -28,7 +28,8 @@ public interface UserDao extends BaseMapper<User>
     public List<User> selectByIdWithRole(int id );
 
 
-    @Insert("insert into user (id,username,password,sex,description,name ) values (#{id},#{username},#{password},#{sex},#{description},#{name});")
+    @Insert("insert into user (id,username,password,sex,description,name ) " +
+            "values (#{id},#{username},#{password},#{sex},#{description},#{name});")
     public List<Course> insertUser(User user);
 
 }
