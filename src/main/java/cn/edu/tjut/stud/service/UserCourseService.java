@@ -15,4 +15,6 @@ public interface UserCourseService extends IService<UserCourse>
     List<Course> selectCourse(int id);
 
 //    List<UserCourse>   allCourse(int id);
+    void removeCourse(int cno);
+
 }

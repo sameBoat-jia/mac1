@@ -40,7 +40,8 @@ public class UserCourseServiceImpl extends ServiceImpl<UserCourseDao, UserCourse
     private RedissonClient redissonClient;
 
     @Override
-    public void proxy(UserCourse userCourse) {
+    public void proxy(UserCourse userCourse)
+    {
         int cno = userCourse.getCno();
 //        synchronized (String.valueOf(cno).intern()) {
         int id = userCourse.getId();
@@ -52,43 +53,55 @@ public class UserCourseServiceImpl extends ServiceImpl<UserCourseDao, UserCourse
             //获取锁不成功
             return;
         }
-        try {
+        try
+        {
             UserCourseService proxy = (UserCourseService) AopContext.currentProxy();
             proxy.addCourse(userCourse);
-        } finally {
+        } finally
+        {
             lock.unlock();
         }
 //        }
     }
 
     @Override
-    public List<Course> selectCourse(int id) {
+    public List<Course> selectCourse(int id)
+    {
         List<Integer> list = userCourseDao.selectCourse(id);
         List<Course> userCourses = courseDao.selectBatchIds(list);
-        System.out.println("userCourses = " + userCourses);
         return userCourses;
     }
 
+    @Override
+    public void removeCourse(int cno)
+    {
+        userCourseDao.removeCourse(cno);
+    }
 
     @Override
     @Transactional
-    public void addCourse(UserCourse userCourse) {
+    public void addCourse(UserCourse userCourse)
+    {
 
         int cno = userCourse.getCno();
-        synchronized (String.valueOf(cno).intern()) {
+        synchronized (String.valueOf(cno).intern())
+        {
             Course course = courseService.selectMyCourse(cno);
-            if (course.getTotal() < 1) {
+            if (course.getTotal() < 1)
+            {
                 return;
             }
             int count = query().eq("cno", cno).eq("id", userCourse.getId()).count();
-            if (count > 0) {
+            if (count > 0)
+            {
                 return;
             }
             boolean flag = courseService.update().setSql("total=total-1")
                     .eq("cno", course.getCno()).gt("total", 0)
                     .update();
 
-            if (!flag) {
+            if (!flag)
+            {
                 return;
             }
             userCourseService.save(userCourse);

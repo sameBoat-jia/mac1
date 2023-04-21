@@ -45,9 +45,10 @@ public class MenuController {
 ////        menu.setId(menuService.findByUser(username));
 //        return R.success(menu);
 //    }
-@GetMapping("/{username}")
-public List<Menu> findBy(@PathVariable String username) {
-    return (menuService.findByUser(username));
-}
+    @GetMapping("/{username}")
+    public List<Menu> findBy(@PathVariable String username)
+    {
+        return (menuService.findByUser(username));
+    }
 
 }

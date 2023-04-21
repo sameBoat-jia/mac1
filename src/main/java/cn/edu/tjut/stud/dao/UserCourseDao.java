@@ -2,6 +2,7 @@ package cn.edu.tjut.stud.dao;
 
 import cn.edu.tjut.stud.domain.UserCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -37,4 +38,6 @@ public interface UserCourseDao extends BaseMapper<UserCourse>
     public List<Map<Integer,String>> teacherSelectScore(int cno );
 
 
+    @Delete("delete from user_course where cno=#{cno}")
+    void removeCourse(int cno);
 }
